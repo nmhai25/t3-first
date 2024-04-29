@@ -33,17 +33,26 @@ export const posts = createTable(
   }),
 );
 
-export const users = createTable(
-  "user",
-  {
-    id: serial("id").primaryKey(),
-    name: varchar("name", { length: 256 }),
-    createdAt: timestamp("created_at")
-      .default(sql`CURRENT_TIMESTAMP`)
-      .notNull(),
-    updatedAt: timestamp("updatedAt"),
-  },
-  // (example) => ({
-  //   nameIndex: index("name_idx").on(example.name),
-  // }),
-);
+export const users = createTable("user", {
+  id: serial("id").primaryKey(),
+  name: varchar("name", { length: 256 }),
+  createdAt: timestamp("created_at")
+    .default(sql`CURRENT_TIMESTAMP`)
+    .notNull(),
+  updatedAt: timestamp("updatedAt"),
+});
+
+export const product = createTable("product", {
+  id: serial("id").primaryKey(),
+  users_id: serial("users_id").references(() => users.id),
+  title: varchar("title", { length: 256 }),
+  inch: varchar("inch", { length: 256 }),
+  status: varchar("status", { length: 256 }),
+  color: varchar("color", { length: 256 }),
+  price: varchar("price", { length: 256 }),
+  discription: varchar("discription", { length: 256 }),
+  createdAt: timestamp("created_at")
+    .default(sql`CURRENT_TIMESTAMP`)
+    .notNull(),
+  updatedAt: timestamp("updatedAt"),
+});
